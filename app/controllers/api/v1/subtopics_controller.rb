@@ -40,7 +40,7 @@ class Api::V1::SubtopicsController < ApplicationController
   private
 
     def subtopic_params
-      params.require(:subtopic).permit(:name, :pic_url)
+      params.require(:subtopic).permit(:name, :pic_url, :topic_id)
     end
 
     def set_subtopic
