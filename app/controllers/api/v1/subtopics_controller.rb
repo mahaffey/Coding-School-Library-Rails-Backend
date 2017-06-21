@@ -8,7 +8,7 @@ class Api::V1::SubtopicsController < ApplicationController
 
   def index_all
     @subtopics = Subtopic.all
-    render json: @subtopics.order(:name), status: 200
+    render json: @subtopics.order(topic_id: :desc), status: 200
   end
 
   def show
