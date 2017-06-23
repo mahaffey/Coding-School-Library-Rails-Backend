@@ -1,4 +1,5 @@
 class Api::V1::ContentsController < ApplicationController
+    before_action :set_content, only: [:show,:update,:destroy]
 
   def index
     @contents = Subtopic.find(params[:subtopic_id]).contents
@@ -11,7 +12,6 @@ class Api::V1::ContentsController < ApplicationController
   end
 
   def show
-    @content = Content.find(params[:id])
     render json: @content, status: 200
   end
 
@@ -24,15 +24,28 @@ class Api::V1::ContentsController < ApplicationController
     end
   end
 
+  def update
+    if @content.update(content_params)
+      render json: @content, status: 200
+    else
+      render json: {message: @content.errors.full_messages}, status: 500
+    end
+  end
+
+  def destroy
+    @content.destroy
+    render json: {message:"You successfully deleted the content"}, status: 204
+  end
+
   private
 
     def content_params
       params.require(:content).permit(:title, :pic_url, :link_url, :description, :difficulty, :subtopic_id)
     end
 
-    # def set_subtopic
-    #   @subtopic = Subtopic.find(params[:id])
-    # end
+    def set_content
+      @content = Content.find(params[:id])
+    end
 
 
 end
