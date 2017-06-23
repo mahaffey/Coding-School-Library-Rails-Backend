@@ -36,11 +36,23 @@ class Api::V1::ContentsController < ApplicationController
     @content.destroy
     render json: {message:"You successfully deleted the content"}, status: 204
   end
+<<<<<<< HEAD
 
   private
 
     def content_params
       params.require(:content).permit(:title, :link_url, :pic_url, :description, :difficulty, :subtopic_id)
+=======
+
+  private
+
+    def content_params
+      params.require(:content).permit(:title, :pic_url, :link_url, :description, :difficulty, :subtopic_id)
+    end
+
+    def set_content
+      @content = Content.find(params[:id])
+>>>>>>> create-content
     end
 
     def set_content
